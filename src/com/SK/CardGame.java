@@ -24,9 +24,10 @@ public class CardGame {
         return deckOfCards;
     }
 
-    public Card dealCard() throws Exception {
+    public Card dealCard() {
         if(topOfDeck==52){
-            throw new Exception("End of deck reached");
+            topOfDeck=0;
+            return deckOfCards.get(51);
         }else{
             topOfDeck++;
             return deckOfCards.get(topOfDeck-1);

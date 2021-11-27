@@ -11,38 +11,42 @@ public class Snap extends CardGame{
     public void playSnap() {
         boolean gameOver=false;
         Scanner scanner = new Scanner(System.in);
+        Players<Player> players = new Players<>();
+        Player currentPlayer;
 
-        System.out.println("Type Name of Player 1 and hit enter:");
-        String P1 =scanner.nextLine();
-        Player player1=new Player(P1);
-
-        System.out.println("Type Name of Player 2 and hit enter:");
-        String P2 =scanner.nextLine();
-        Player player2=new Player(P2);
-        System.out.println("Starting game Snap. Press any key to deal the 1st card:");
-
-        System.out.println(player1.getName() +"  "+player2.getName());
-
-        Card prevCard = null, currentCard;
-        this.shuffleDeck();
-        while (!gameOver && scanner.nextLine()!=null){
-            try{
-                currentCard=dealCard();
-                System.out.println(currentCard.toString());
+        System.out.println("How may players (1-9)?");
+        int playerCount = scanner.nextInt();
+        if (playerCount <0 || playerCount >9){
+            System.out.println("Invalid input. Bye!");
+        }else{
+            for (int i = 0; i < playerCount; i++) {
+                System.out.println("Player "+(i+1)+":");
+                players.add(new Player(scanner.next()));
             }
-            catch (Exception e){
-                this.shuffleDeck();
-                continue;
-            }
-            if(prevCard!=null && prevCard.getValue() == (currentCard.getValue())){
-//                System.out.println(prevCard.toString() +" "+ currentCard.toString()+" Game over!!");
-                System.out.println("Game over!!!");
-                gameOver=true;
-            }else{
-                prevCard=currentCard;
+            System.out.println("Starting game Snap....");
+            Card prevCard = null, currentCard;
+            currentPlayer=players.getNextPlayer();
+            this.shuffleDeck();
+            scanner.nextLine();
+            while (!gameOver) {
+                System.out.println(currentPlayer.getName() + "'s turn. Press enter:");
+                scanner.nextLine();
+                try {
+                    currentCard = dealCard();
+                    System.out.println(currentCard.toString());
+                } catch (Exception e) {
+                    this.shuffleDeck();
+                    continue;
+                }
+                if (prevCard != null && prevCard.getSuit() == (currentCard.getSuit())) {
+                    //                System.out.println(prevCard.toString() +" "+ currentCard.toString()+" Game over!!");
+                    System.out.println("Player " + currentPlayer.getName() + " wins!!2");
+                    gameOver = true;
+                } else {
+                    prevCard = currentCard;
+                    currentPlayer = players.getNextPlayer();
+                }
             }
         }
-
-
     }
 }

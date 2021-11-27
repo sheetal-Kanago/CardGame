@@ -20,6 +20,22 @@ public class Main {
         Snap snap=new Snap("snap");
         snap.playSnap();
 
+////           Test Players class
+//        Players<Player> players=new Players<>();
+//        players.add(new Player("One"));
+//        players.add(new Player("Two"));
+//        players.add(new Player("Three"));
+//        players.add(new Player("Four"));
+//
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println(players.getNextPlayer().getName());
+//        }
+
+////        test CArdGame
+//            CardGame CG = new CardGame("SK");
+//        for (int i = 0; i < 200; i++) {
+//            System.out.println(CG.dealCard());
+//        }
 
     }
 }
